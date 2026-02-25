@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Analiz Geçmişi - SeraVision{% endblock %}
+
+{% block content %}
+<header>
+    <h1>Tüm Analiz Geçmişi</h1>
+</header>
+
+<div class="dashboard-container">
+    <div class="widget">
+        <div class="widget-title">PostgreSQL Veritabanı Kayıtları</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Kamera/Sera ID</th>
+                    <th>Tarih & Saat</th>
+                    <th>Ham</th>
+                    <th>Yarı Olgun</th>
+                    <th>Olgun</th>
+                    <th>Ortalama Olgunluk</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for analiz in analizler %}
+                <tr>
+                    <td>{{ analiz.kamera_adi }}</td>
+                    <td>{{ analiz.analiz_tarihi|date:"d M Y, H:i" }}</td>
+                    <td>{{ analiz.ham_sayisi }}</td>
+                    <td>{{ analiz.yari_olgun_sayisi }}</td>
+                    <td>{{ analiz.olgun_sayisi }}</td>
+                    <td><strong>%{{ analiz.ortalama_olgunluk }}</strong></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" style="text-align:center; padding: 20px;">Henüz hiç analiz yapılmamış.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

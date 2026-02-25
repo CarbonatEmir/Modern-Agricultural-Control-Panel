@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sera Kontrol Merkezi{% endblock %}</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* BÜTÜN CSS KODLARIMIZ BURADA (Tek Bir Yerde!) */
+        :root {
+            --primary: #2e7d32;
+            --sidebar: #1e293b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { display: flex; height: 100vh; background-color: var(--bg); color: var(--text-main); overflow: hidden; }
+        .sidebar { width: 260px; background-color: var(--sidebar); color: white; display: flex; flex-direction: column; padding: 20px 0; }
+        .sidebar-brand { font-size: 22px; font-weight: bold; padding: 0 25px 20px; border-bottom: 1px solid #334155; color: #4ade80; margin-bottom: 20px; }
+        .menu-item { padding: 15px 25px; color: #cbd5e1; text-decoration: none; font-size: 16px; transition: all 0.3s; border-left: 4px solid transparent; }
+        .menu-item:hover, .menu-item.active { background-color: #334155; color: white; border-left: 4px solid #4ade80; }
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+        header { background-color: var(--card-bg); padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        header h1 { font-size: 24px; color: var(--text-main); }
+        .dashboard-container { padding: 30px; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .card { background: var(--card-bg); border-radius: 12px; padding: 25px 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border-top: 4px solid #cbd5e1; }
+        .card.total { border-top-color: #3b82f6; } .card.avg { border-top-color: #8b5cf6; } .card.ham { border-top-color: #84cc16; } .card.yari { border-top-color: #f59e0b; } .card.olgun { border-top-color: #ef4444; }
+        .card-title { font-size: 13px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+        .card-value { font-size: 32px; font-weight: bold; margin-top: 10px; color: var(--text-main); }
+        .bottom-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+        .widget { background: var(--card-bg); border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .widget-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; color: var(--text-main); }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { padding: 12px 15px; background-color: #f1f5f9; color: var(--text-muted); font-size: 14px; font-weight: 600; }
+        td { padding: 15px; border-bottom: 1px solid #e2e8f0; color: var(--text-main); font-size: 15px; }
+        .badge { padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; color: white; }
+        .badge.iyi { background-color: #22c55e; } .badge.orta { background-color: #f59e0b; }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">🍅 SeraVision</div>
+        <a href="{% url 'dashboard' %}" class="menu-item">Kontrol Paneli</a>
+        <a href="{% url 'analiz_gecmisi' %}" class="menu-item">Analiz Geçmişi</a>
+        <a href="{% url 'kameralar' %}" class="menu-item">Kamera Akışları</a>
+        <a href="{% url 'ayarlar' %}" class="menu-item">Ayarlar</a>
+    </aside>
+
+    <main class="main-content">
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    {% block scripts %}
+    {% endblock scripts %}
+
+</body>
+</html>

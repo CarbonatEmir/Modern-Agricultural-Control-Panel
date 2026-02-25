@@ -1,0 +1,64 @@
+{% extends 'base.html' %} {% block title %}Ana Dashboard - SeraVision{% endblock %}
+
+{% block content %}
+<header>
+    <h1>Genel Bakış</h1>
+    <div style="color: var(--text-muted); font-weight: 500;">Sistem Aktif</div>
+</header>
+
+<div class="dashboard-container">
+    <div class="kpi-grid">
+        <div class="card total">
+            <div class="card-title">İşlenen Fotoğraf</div>
+            <div class="card-value">{{total}}</div>
+        </div>
+        <div class="card avg">
+            <div class="card-title">Ort. Olgunluk</div>
+            <div class="card-value">%{{average}}</div>
+        </div>
+        <div class="card ham">
+            <div class="card-title">Ham Domatesler</div>
+            <div class="card-value">{{ham}}</div>
+        </div>
+        <div class="card yari">
+            <div class="card-title">Yarı Olgunlar</div>
+            <div class="card-value">{{yari}}</div>
+        </div>
+        <div class="card olgun">
+            <div class="card-title">Olgun Domatesler</div>
+            <div class="card-value">{{olgun}}</div>
+        </div>
+    </div>
+
+    <div class="bottom-grid">
+        <div class="widget">
+            <div class="widget-title">Güncel Dağılım</div>
+            <div style="height: 250px; display: flex; justify-content: center;">
+                <canvas id="olgunlukGrafigi"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    const ctx = document.getElementById('olgunlukGrafigi').getContext('2d');
+    const hamDeger = {{ ham|default:0 }}; 
+    const yariDeger = {{ yari|default:0 }}; 
+    const olgunDeger = {{ olgun|default:0 }}; 
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Ham', 'Yarı Olgun', 'Olgun'],
+            datasets: [{
+                data: [hamDeger, yariDeger, olgunDeger],
+                backgroundColor: ['#84cc16', '#f59e0b', '#ef4444'],
+                borderWidth: 0, hoverOffset: 4
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+    });
+</script>
+{% endblock scripts %}
