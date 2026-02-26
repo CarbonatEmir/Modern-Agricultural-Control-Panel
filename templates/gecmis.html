@@ -3,8 +3,47 @@
 {% block title %}Analiz Geçmişi - SeraVision{% endblock %}
 
 {% block content %}
+<style>
+    .widget {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        margin-bottom: 20px;
+    }
+    .widget-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; color: var(--text-main); }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { padding: 12px 15px; background-color: #f1f5f9; color: var(--text-muted); font-size: 14px; font-weight: 600; }
+    td { padding: 15px; border-bottom: 1px solid #e2e8f0; color: var(--text-main); font-size: 15px; }
+    
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 25px;
+        padding-top: 15px;
+        border-top: 1px solid #e2e8f0;
+    }
+    .page-btn {
+        background-color: #f1f5f9;
+        color: #0f172a;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 600;
+        margin: 0 5px;
+        transition: all 0.2s;
+        border: 1px solid #cbd5e1;
+    }
+    .page-btn:hover { background-color: #334155; color: white; border-color: #334155; }
+    .page-info { font-weight: bold; color: var(--text-muted); margin: 0 15px; }
+</style>
+
 <header>
     <h1>Tüm Analiz Geçmişi</h1>
+    <div style="color: var(--text-muted); font-weight: 500;">
+        Sistem Kayıtları
+    </div>
 </header>
 
 <div class="dashboard-container">
@@ -18,7 +57,7 @@
                     <th>Ham</th>
                     <th>Yarı Olgun</th>
                     <th>Olgun</th>
-                    <th>Ortalama Olgunluk</th>
+                    <th>Ort. Olgunluk</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,11 +72,34 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="6" style="text-align:center; padding: 20px;">Henüz hiç analiz yapılmamış.</td>
+                    <td colspan="6" style="text-align:center; padding: 20px; color: var(--text-muted);">
+                        Henüz hiç analiz kaydı bulunmuyor.
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+
+        {% if analizler.paginator.num_pages > 1 %}
+        <div class="pagination-container">
+            
+            {% if analizler.has_previous %}
+                <a href="?page=1" class="page-btn">&laquo; İlk</a>
+                <a href="?page={{ analizler.previous_page_number }}" class="page-btn">Önceki</a>
+            {% endif %}
+
+            <span class="page-info">
+                Sayfa {{ analizler.number }} / {{ analizler.paginator.num_pages }}
+            </span>
+
+            {% if analizler.has_next %}
+                <a href="?page={{ analizler.next_page_number }}" class="page-btn">Sonraki</a>
+                <a href="?page={{ analizler.paginator.num_pages }}" class="page-btn">Son &raquo;</a>
+            {% endif %}
+
+        </div>
+        {% endif %}
+        
     </div>
 </div>
 {% endblock content %}

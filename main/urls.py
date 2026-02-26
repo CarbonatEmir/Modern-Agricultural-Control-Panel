@@ -16,4 +16,5 @@ urlpatterns = [
     path('gecmis/', views.analiz_gecmisi, name='analiz_gecmisi'),
     path('kameralar/', views.kameralar, name='kameralar'),
     path('ayarlar/', views.ayarlar, name='ayarlar'),
+    path('api/analiz-yap/', views.yapay_zeka_analiz_api, name='api_analiz'),
 ]

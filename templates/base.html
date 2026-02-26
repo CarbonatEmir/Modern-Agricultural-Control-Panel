@@ -6,7 +6,6 @@
     <title>{% block title %}Sera Kontrol Merkezi{% endblock %}</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* BÜTÜN CSS KODLARIMIZ BURADA (Tek Bir Yerde!) */
         :root {
             --primary: #2e7d32;
             --sidebar: #1e293b;
@@ -46,7 +45,7 @@
         <div class="sidebar-brand">🍅 SeraVision</div>
         <a href="{% url 'dashboard' %}" class="menu-item">Kontrol Paneli</a>
         <a href="{% url 'analiz_gecmisi' %}" class="menu-item">Analiz Geçmişi</a>
-        <a href="{% url 'kameralar' %}" class="menu-item">Kamera Akışları</a>
+        <a href="{% url 'kameralar' %}" class="menu-item">Görüntü Analizi</a>
         <a href="{% url 'ayarlar' %}" class="menu-item">Ayarlar</a>
     </aside>
 
